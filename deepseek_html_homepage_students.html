@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Shuttle Smart - Student Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4e73df;
+            --primary-light: #7a9ef0;
+            --secondary: #858796;
+            --light: #f8f9fc;
+            --dark: #5a5c69;
+            --success: #1cc88a;
+            --warning: #f6c23e;
+            --danger: #e74a3b;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f7fb;
+            color: #4a4a4a;
+            line-height: 1.6;
+        }
+        
+        /* Header Styles */
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            padding: 1.2rem 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-right: 0.5rem;
+        }
+        
+        .user-menu {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+        }
+        
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-weight: bold;
+            margin-left: 1rem;
+            cursor: pointer;
+        }
+        
+        /* Main Content Styles */
+        .main-content {
+            padding: 2rem 0;
+        }
+        
+        .welcome-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            margin-bottom: 2rem;
+        }
+        
+        .welcome-text h2 {
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stats-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            height: 100%;
+            transition: transform 0.3s ease;
+        }
+        
+        .stats-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .stats-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            background: rgba(78, 115, 223, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .stats-number {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .stats-label {
+            color: var(--secondary);
+            font-size: 0.9rem;
+        }
+        
+        /* Booking Widget */
+        .booking-widget {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            margin-bottom: 2rem;
+        }
+        
+        .booking-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .booking-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        .form-control {
+            padding: 0.8rem 1rem;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+            transition: all 0.3s;
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 0.25rem rgba(78, 115, 223, 0.15);
+        }
+        
+        .input-group-text {
+            background: white;
+            border-radius: 8px 0 0 8px;
+            border: 1px solid #e0e0e0;
+            border-right: none;
+        }
+        
+        .destination-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+        
+        .destination-chip {
+            background: #f0f4ff;
+            color: var(--primary);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .destination-chip:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .ride-option {
+            display: flex;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+        }
+        
+        .ride-option-btn {
+            flex: 1;
+            padding: 0.8rem;
+            text-align: center;
+            background: white;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .ride-option-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .fare-display {
+            background: #f8f9fc;
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .fare-amount {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .btn-book {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 1rem;
+            border-radius: 8px;
+            font-weight: 600;
+            width: 100%;
+            transition: all 0.3s;
+        }
+        
+        .btn-book:hover {
+            background: #3a59c7;
+            transform: translateY(-2px);
+        }
+        
+        /* Active Ride Section */
+        .active-ride {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            margin-bottom: 2rem;
+        }
+        
+        .ride-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eaeaea;
+        }
+        
+        .driver-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .driver-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            background: #f0f4ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin-right: 1rem;
+        }
+        
+        .driver-details h5 {
+            margin-bottom: 0.2rem;
+            color: var(--dark);
+        }
+        
+        .driver-details p {
+            color: var(--secondary);
+            margin-bottom: 0;
+        }
+        
+        .ride-details {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+        }
+        
+        .ride-from, .ride-to {
+            flex: 1;
+        }
+        
+        .ride-point {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+        
+        .ride-point i {
+            margin-right: 0.5rem;
+            color: var(--primary);
+        }
+        
+        .ride-progress {
+            height: 6px;
+            background: #eaeaea;
+            border-radius: 3px;
+            margin: 1rem 0;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: var(--primary);
+            border-radius: 3px;
+            width: 65%;
+        }
+        
+        .ride-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .btn-action {
+            flex: 1;
+            padding: 0.8rem;
+            border-radius: 8px;
+            border: 1px solid #eaeaea;
+            background: white;
+            color: var(--dark);
+            transition: all 0.3s;
+        }
+        
+        .btn-action:hover {
+            background: #f5f7fb;
+        }
+        
+        .btn-action.call {
+            color: var(--success);
+            border-color: rgba(28, 200, 138, 0.3);
+        }
+        
+        .btn-action.cancel {
+            color: var(--danger);
+            border-color: rgba(231, 74, 59, 0.3);
+        }
+        
+        /* Recent Rides Section */
+        .recent-rides {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+        
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eaeaea;
+        }
+        
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        .ride-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .ride-item:last-child {
+            border-bottom: none;
+        }
+        
+        .ride-destination {
+            flex: 2;
+        }
+        
+        .ride-date {
+            flex: 1;
+            color: var(--secondary);
+            text-align: right;
+        }
+        
+        .ride-fare {
+            flex: 1;
+            font-weight: 600;
+            text-align: right;
+        }
+        
+        /* SOS Button */
+        .sos-button {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--danger);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(231, 74, 59, 0.3);
+            z-index: 99;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .header {
+                padding: 1rem 0;
+            }
+            
+            .logo {
+                font-size: 1.5rem;
+            }
+            
+            .main-content {
+                padding: 1rem 0;
+            }
+            
+            .stats-card {
+                margin-bottom: 1rem;
+            }
+            
+            .ride-details {
+                flex-direction: column;
+            }
+            
+            .ride-from, .ride-to {
+                margin-bottom: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <div class="logo">
+                        <i class="fas fa-bus"></i>
+                        <span>Campus Shuttle</span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="user-menu">
+                        <div class="notifications">
+                            <i class="fas fa-bell"></i>
+                        </div>
+                        <div class="user-avatar">
+                            <span>S</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Welcome Card -->
+            <div class="welcome-card">
+                <div class="row align-items-center">
+                    <div class="col-md-8">
+                        <div class="welcome-text">
+                            <h2>Good morning, Sarah!</h2>
+                            <p>Ready to book your next ride? There are <strong>25 autos</strong> available near you.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 text-md-end">
+                        <div class="wallet-balance">
+                            <span class="text-muted">Wallet Balance:</span>
+                            <h3 class="text-primary">₹ 450.00</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="row mb-4">
+                <div class="col-md-3 col-6">
+                    <div class="stats-card">
+                        <div class="stats-icon">
+                            <i class="fas fa-road"></i>
+                        </div>
+                        <div class="stats-number">42</div>
+                        <div class="stats-label">Total Rides</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stats-card">
+                        <div class="stats-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stats-number">24</div>
+                        <div class="stats-label">Shared Rides</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stats-card">
+                        <div class="stats-icon">
+                            <i class="fas fa-money-bill-wave"></i>
+                        </div>
+                        <div class="stats-number">₹3,240</div>
+                        <div class="stats-label">Total Saved</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stats-card">
+                        <div class="stats-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="stats-number">4.8</div>
+                        <div class="stats-label">Avg Rating</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Booking Widget -->
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="booking-widget">
+                        <div class="booking-header">
+                            <div class="booking-title">Book a Ride</div>
+                            <div class="auto-count">
+                                <span class="badge bg-success">25 autos nearby</span>
+                            </div>
+                        </div>
+                        
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Pickup Location</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
+                                    <input type="text" class="form-control" value="MBU Main Gate" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Destination</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-flag"></i></span>
+                                    <input type="text" class="form-control" placeholder="Where to?">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Popular Destinations</label>
+                            <div class="destination-chips">
+                                <div class="destination-chip">Tirupati Railway Station</div>
+                                <div class="destination-chip">City Bus Stand</div>
+                                <div class="destination-chip">Central Mall</div>
+                                <div class="destination-chip">PVR Cinemas</div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label class="form-label">Ride Type</label>
+                            <div class="ride-option">
+                                <button class="ride-option-btn active">Solo Ride</button>
+                                <button class="ride-option-btn">Shared Ride</button>
+                            </div>
+                        </div>
+                        
+                        <div class="fare-display">
+                            <div class="text-muted">Estimated Fare</div>
+                            <div class="fare-amount">₹ 120.00</div>
+                            <div class="text-muted small">Inclusive of all charges</div>
+                        </div>
+                        
+                        <button class="btn-book">
+                            <i class="fas fa-car me-2"></i>Book Auto Now
+                        </button>
+                    </div>
+                    
+                    <!-- Recent Rides -->
+                    <div class="recent-rides">
+                        <div class="section-header">
+                            <div class="section-title">Recent Rides</div>
+                            <a href="#" class="text-primary">View all</a>
+                        </div>
+                        
+                        <div class="ride-item">
+                            <div class="ride-destination">
+                                <div class="fw-bold">Tirupati Railway Station</div>
+                                <div class="small text-muted">Auto #AP03TX1234 • Rajesh</div>
+                            </div>
+                            <div class="ride-date">Today, 10:30 AM</div>
+                            <div class="ride-fare">₹120.00</div>
+                        </div>
+                        
+                        <div class="ride-item">
+                            <div class="ride-destination">
+                                <div class="fw-bold">Central Mall</div>
+                                <div class="small text-muted">Auto #AP03TX5678 • Suresh</div>
+                            </div>
+                            <div class="ride-date">Yesterday, 4:15 PM</div>
+                            <div class="ride-fare">₹85.00</div>
+                        </div>
+                        
+                        <div class="ride-item">
+                            <div class="ride-destination">
+                                <div class="fw-bold">City Bus Stand</div>
+                                <div class="small text-muted">Auto #AP03TX9012 • Mahesh</div>
+                            </div>
+                            <div class="ride-date">12 Oct, 11:20 AM</div>
+                            <div class="ride-fare">₹95.00</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4">
+                    <!-- Active Ride -->
+                    <div class="active-ride">
+                        <div class="ride-header">
+                            <div class="section-title">Active Ride</div>
+                            <div class="badge bg-success">Arriving in 5 min</div>
+                        </div>
+                        
+                        <div class="driver-info">
+                            <div class="driver-avatar">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="driver-details">
+                                <h5>Rajesh Kumar</h5>
+                                <p>Auto #AP03TX1234 • 4.8 ★</p>
+                            </div>
+                        </div>
+                        
+                        <div class="ride-details">
+                            <div class="ride-from">
+                                <div class="ride-point">
+                                    <i class="fas fa-circle"></i>
+                                    <div>
+                                        <div class="fw-bold">MBU Main Gate</div>
+                                        <div class="small text-muted">Pickup</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="ride-to">
+                                <div class="ride-point">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <div>
+                                        <div class="fw-bold">Tirupati Railway Station</div>
+                                        <div class="small text-muted">Destination</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="ride-progress">
+                            <div class="progress-bar"></div>
+                        </div>
+                        <div class="text-center small text-muted mb-3">65% completed</div>
+                        
+                        <div class="ride-actions">
+                            <button class="btn-action call">
+                                <i class="fas fa-phone-alt me-2"></i>Call
+                            </button>
+                            <button class="btn-action">
+                                <i class="fas fa-map me-2"></i>Track
+                            </button>
+                            <button class="btn-action cancel">
+                                <i class="fas fa-times me-2"></i>Cancel
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Safety Features -->
+                    <div class="active-ride">
+                        <div class="section-header">
+                            <div class="section-title">Safety Features</div>
+                        </div>
+                        
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-outline-primary">
+                                <i class="fas fa-share-alt me-2"></i>Share Ride Details
+                            </button>
+                            <button class="btn btn-outline-primary">
+                                <i class="fas fa-user-shield me-2"></i>Emergency Contact
+                            </button>
+                            <button class="btn btn-outline-primary">
+                                <i class="fas fa-file-invoice me-2"></i>Ride Receipt
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- SOS Button -->
+    <div class="sos-button">
+        <i class="fas fa-exclamation-triangle"></i>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Ride option toggle
+            const rideOptionButtons = document.querySelectorAll('.ride-option-btn');
+            rideOptionButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    rideOptionButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Update fare estimate based on ride type
+                    const fareAmount = document.querySelector('.fare-amount');
+                    if (this.textContent.includes('Shared')) {
+                        fareAmount.textContent = '₹ 85.00';
+                    } else {
+                        fareAmount.textContent = '₹ 120.00';
+                    }
+                });
+            });
+            
+            // Destination chips selection
+            const destinationChips = document.querySelectorAll('.destination-chip');
+            destinationChips.forEach(chip => {
+                chip.addEventListener('click', function() {
+                    const destinationInput = document.querySelector('input[placeholder="Where to?"]');
+                    destinationInput.value = this.textContent;
+                    
+                    // Update fare based on destination
+                    const fareAmount = document.querySelector('.fare-amount');
+                    if (this.textContent.includes('Railway')) {
+                        fareAmount.textContent = '₹ 120.00';
+                    } else if (this.textContent.includes('Mall')) {
+                        fareAmount.textContent = '₹ 85.00';
+                    } else if (this.textContent.includes('Bus')) {
+                        fareAmount.textContent = '₹ 95.00';
+                    } else {
+                        fareAmount.textContent = '₹ 100.00';
+                    }
+                });
+            });
+            
+            // Book ride button
+            const bookButton = document.querySelector('.btn-book');
+            bookButton.addEventListener('click', function() {
+                alert('Your ride has been booked successfully! Driver will arrive shortly.');
+            });
+        });
+    </script>
+</body>
+</html>

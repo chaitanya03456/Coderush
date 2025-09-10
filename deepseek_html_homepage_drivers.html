@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Shuttle Smart - Driver Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1cc88a;
+            --primary-light: #4ed4a6;
+            --secondary: #36b9cc;
+            --light: #eefaf6;
+            --dark: #2e59d9;
+            --warning: #f6c23e;
+            --danger: #e74a3b;
+            --gray: #858796;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f7fb;
+            color: #4a4a4a;
+            line-height: 1.6;
+        }
+        
+        /* Header Styles */
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            padding: 1.2rem 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-right: 0.5rem;
+        }
+        
+        .user-menu {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 1rem;
+        }
+        
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        /* Status Toggle */
+        .status-toggle {
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 0.3rem;
+        }
+        
+        .status-btn {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            border: none;
+            background: transparent;
+            color: white;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .status-btn.active {
+            background: white;
+            color: var(--primary);
+        }
+        
+        /* Main Content Styles */
+        .main-content {
+            padding: 2rem 0;
+        }
+        
+        .welcome-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            margin-bottom: 2rem;
+        }
+        
+        .welcome-text h2 {
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stats-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            height: 100%;
+            transition: transform 0.3s ease;
+        }
+        
+        .stats-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .stats-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            background: rgba(28, 200, 138, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .stats-number {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .stats-label {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        
+        /* Dashboard Cards */
+        .dashboard-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            margin-bottom: 2rem;
+            height: 100%;
+        }
+        
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eaeaea;
+        }
+        
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--dark);
+            margin: 0;
+        }
+        
+        /* Ride Requests */
+        .ride-request {
+            border-left: 4px solid var(--primary);
+            padding: 1rem;
+            margin-bottom: 1rem;
+            background: #f8f9fc;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+        
+        .ride-request:hover {
+            transform: translateX(5px);
+        }
+        
+        .request-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+        
+        .request-location {
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        .request-fare {
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .request-details {
+            display: flex;
+            justify-content: space-between;
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        
+        .request-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .btn-accept {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-weight: 600;
+            flex: 1;
+            transition: all 0.3s;
+        }
+        
+        .btn-accept:hover {
+            background: #17a673;
+        }
+        
+        .btn-decline {
+            background: white;
+            color: var(--gray);
+            border: 1px solid #eaeaea;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-weight: 600;
+            flex: 1;
+            transition: all 0.3s;
+        }
+        
+        .btn-decline:hover {
+            border-color: var(--danger);
+            color: var(--danger);
+        }
+        
+        /* Current Ride */
+        .current-ride {
+            border-left: 4px solid var(--secondary);
+        }
+        
+        .driver-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .driver-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            background: #eefaf6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin-right: 1rem;
+        }
+        
+        .driver-details h5 {
+            margin-bottom: 0.2rem;
+            color: var(--dark);
+        }
+        
+        .driver-details p {
+            color: var(--gray);
+            margin-bottom: 0;
+        }
+        
+        .ride-points {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+        }
+        
+        .ride-from, .ride-to {
+            flex: 1;
+        }
+        
+        .ride-point {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+        
+        .ride-point i {
+            margin-right: 0.5rem;
+            color: var(--primary);
+        }
+        
+        .ride-progress {
+            height: 6px;
+            background: #eaeaea;
+            border-radius: 3px;
+            margin: 1rem 0;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: var(--primary);
+            border-radius: 3px;
+            width: 65%;
+        }
+        
+        .ride-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .btn-action {
+            flex: 1;
+            padding: 0.8rem;
+            border-radius: 8px;
+            border: 1px solid #eaeaea;
+            background: white;
+            color: var(--dark);
+            transition: all 0.3s;
+        }
+        
+        .btn-action:hover {
+            background: #f5f7fb;
+        }
+        
+        .btn-action.call {
+            color: var(--secondary);
+            border-color: rgba(54, 185, 204, 0.3);
+        }
+        
+        .btn-action.navigate {
+            color: var(--primary);
+            border-color: rgba(28, 200, 138, 0.3);
+        }
+        
+        .btn-action.complete {
+            background: var(--primary);
+            color: white;
+            border: none;
+        }
+        
+        .btn-action.complete:hover {
+            background: #17a673;
+        }
+        
+        /* Heatmap */
+        .heatmap-container {
+            background: #f8f9fc;
+            border-radius: 8px;
+            padding: 1rem;
+            height: 300px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .map-overlay {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            z-index: 10;
+        }
+        
+        .demand-indicator {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+        
+        .indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 0.5rem;
+        }
+        
+        .high-demand {
+            background-color: var(--danger);
+        }
+        
+        .medium-demand {
+            background-color: var(--warning);
+        }
+        
+        .low-demand {
+            background-color: var(--primary);
+        }
+        
+        /* Earnings Section */
+        .earnings-chart {
+            height: 200px;
+            display: flex;
+            align-items: flex-end;
+            gap: 0.5rem;
+            padding: 1rem 0;
+        }
+        
+        .chart-bar {
+            flex: 1;
+            background: rgba(28, 200, 138, 0.2);
+            border-radius: 4px 4px 0 0;
+            position: relative;
+        }
+        
+        .chart-fill {
+            background: var(--primary);
+            border-radius: 4px 4px 0 0;
+            height: 0;
+            animation: fillChart 1.5s ease forwards;
+        }
+        
+        @keyframes fillChart {
+            from { height: 0; }
+            to { height: var(--fill-height); }
+        }
+        
+        .chart-label {
+            position: absolute;
+            bottom: -25px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .header {
+                padding: 1rem 0;
+            }
+            
+            .logo {
+                font-size: 1.5rem;
+            }
+            
+            .main-content {
+                padding: 1rem 0;
+            }
+            
+            .stats-card {
+                margin-bottom: 1rem;
+            }
+            
+            .ride-points {
+                flex-direction: column;
+            }
+            
+            .ride-from, .ride-to {
+                margin-bottom: 1rem;
+            }
+            
+            .user-menu {
+                gap: 0.5rem;
+            }
+            
+            .status-toggle {
+                padding: 0.2rem;
+            }
+            
+            .status-btn {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <div class="logo">
+                        <i class="fas fa-bus"></i>
+                        <span>Campus Shuttle</span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="user-menu">
+                        <div class="status-toggle">
+                            <button class="status-btn active">Online</button>
+                            <button class="status-btn">Offline</button>
+                        </div>
+                        <div class="notifications">
+                            <i class="fas fa-bell"></i>
+                        </div>
+                        <div class="user-avatar">
+                            <span>R</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Welcome Card -->
+            <div class="welcome-card">
+                <div class="row align-items-center">
+                    <div class="col-md-8">
+                        <div class="welcome-text">
+                            <h2>Welcome back, Rajesh!</h2>
+                            <p>You've completed <strong>12 rides</strong> today. Current earnings: <strong>₹1,240</strong></p>
+                            <div class="d-flex gap-2 mt-2">
+                                <span class="badge bg-success">Online</span>
+                                <span class="badge bg-info">High Demand Area</span>
+                                <span class="badge bg-warning text-dark">Peak Hours</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 text-md-end">
+                        <div class="rating">
+                            <span class="text-muted">Customer Rating:</span>
+                            <h3 class="text-primary">4.8/5.0 <i class="fas fa-star"></i></h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="row mb-4">
+                <div class="col-md-3 col-6">
+                    <div class="stats-card">
+                        <div class="stats-icon">
+                            <i class="fas fa-road"></i>
+                        </div>
+                        <div class="stats-number">12</div>
+                        <div class="stats-label">Today's Rides</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stats-card">
+                        <div class="stats-icon">
+                            <i class="fas fa-money-bill-wave"></i>
+                        </div>
+                        <div class="stats-number">₹1,240</div>
+                        <div class="stats-label">Today's Earnings</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stats-card">
+                        <div class="stats-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="stats-number">5.2h</div>
+                        <div class="stats-label">Online Time</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stats-card">
+                        <div class="stats-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="stats-number">4.8</div>
+                        <div class="stats-label">Avg Rating</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- Left Column -->
+                <div class="col-lg-8">
+                    <!-- Ride Requests -->
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <div class="card-title">New Ride Requests</div>
+                            <div class="badge bg-primary">2 new requests</div>
+                        </div>
+                        
+                        <div class="ride-request">
+                            <div class="request-header">
+                                <div class="request-location">To Tirupati Railway Station</div>
+                                <div class="request-fare">₹120</div>
+                            </div>
+                            <div class="request-details">
+                                <div>From: MBU Main Gate</div>
+                                <div><i class="fas fa-clock me-1"></i>2 min ago</div>
+                            </div>
+                            <div class="request-actions">
+                                <button class="btn-accept">Accept</button>
+                                <button class="btn-decline">Decline</button>
+                            </div>
+                        </div>
+                        
+                        <div class="ride-request">
+                            <div class="request-header">
+                                <div class="request-location">To Central Mall</div>
+                                <div class="request-fare">₹85</div>
+                            </div>
+                            <div class="request-details">
+                                <div>From: MBU East Gate</div>
+                                <div><i class="fas fa-clock me-1"></i>5 min ago</div>
+                            </div>
+                            <div class="request-actions">
+                                <button class="btn-accept">Accept</button>
+                                <button class="btn-decline">Decline</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Demand Heatmap -->
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <div class="card-title">Demand Heatmap</div>
+                            <div class="badge bg-info">Live</div>
+                        </div>
+                        
+                        <div class="heatmap-container">
+                            <div class="map-overlay">
+                                <h6>Demand Intensity</h6>
+                                <div class="demand-indicator">
+                                    <div class="indicator high-demand"></div>
+                                    <span>High Demand</span>
+                                </div>
+                                <div class="demand-indicator">
+                                    <div class="indicator medium-demand"></div>
+                                    <span>Medium Demand</span>
+                                </div>
+                                <div class="demand-indicator">
+                                    <div class="indicator low-demand"></div>
+                                    <span>Low Demand</span>
+                                </div>
+                            </div>
+                            <!-- Heatmap visualization would go here -->
+                            <div style="width: 100%; height: 100%; background: #eaeaea; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: var(--gray);">
+                                <div class="text-center">
+                                    <i class="fas fa-map-marked-alt fa-3x mb-2"></i>
+                                    <p>Live demand heatmap</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-3 alert alert-info">
+                            <i class="fas fa-info-circle me-2"></i>Head to MBU Main Gate for more ride requests. Current demand: <span class="high-demand"></span> High
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Right Column -->
+                <div class="col-lg-4">
+                    <!-- Current Ride -->
+                    <div class="dashboard-card current-ride">
+                        <div class="card-header">
+                            <div class="card-title">Current Ride</div>
+                            <div class="badge bg-success">In Progress</div>
+                        </div>
+                        
+                        <div class="driver-info">
+                            <div class="driver-avatar">
+                                <i class="fas fa-user-graduate"></i>
+                            </div>
+                            <div class="driver-details">
+                                <h5>Sarah Thomas</h5>
+                                <p>Student ID: MBU2023456 • 4.8 ★</p>
+                            </div>
+                        </div>
+                        
+                        <div class="ride-points">
+                            <div class="ride-from">
+                                <div class="ride-point">
+                                    <i class="fas fa-circle"></i>
+                                    <div>
+                                        <div class="fw-bold">MBU Main Gate</div>
+                                        <div class="small text-muted">Pickup</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="ride-to">
+                                <div class="ride-point">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <div>
+                                        <div class="fw-bold">Tirupati Railway Station</div>
+                                        <div class="small text-muted">Destination</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="ride-progress">
+                            <div class="progress-bar"></div>
+                        </div>
+                        <div class="text-center small text-muted mb-3">65% completed • 5.2 km</div>
+                        
+                        <div class="ride-details mb-3">
+                            <div class="d-flex justify-content-between">
+                                <span>Fare:</span>
+                                <strong>₹120</strong>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <span>Ride Type:</span>
+                                <strong>Solo</strong>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <span>Payment:</span>
+                                <strong>UPI</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="ride-actions">
+                            <button class="btn-action call">
+                                <i class="fas fa-phone-alt me-2"></i>Call
+                            </button>
+                            <button class="btn-action navigate">
+                                <i class="fas fa-route me-2"></i>Navigate
+                            </button>
+                            <button class="btn-action complete">
+                                <i class="fas fa-check-circle me-2"></i>Complete
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Earnings Overview -->
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <div class="card-title">Earnings Overview</div>
+                        </div>
+                        
+                        <div class="earnings-chart">
+                            <div class="chart-bar">
+                                <div class="chart-fill" style="--fill-height: 40%;"></div>
+                                <div class="chart-label">Mon</div>
+                            </div>
+                            <div class="chart-bar">
+                                <div class="chart-fill" style="--fill-height: 65%;"></div>
+                                <div class="chart-label">Tue</div>
+                            </div>
+                            <div class="chart-bar">
+                                <div class="chart-fill" style="--fill-height: 75%;"></div>
+                                <div class="chart-label">Wed</div>
+                            </div>
+                            <div class="chart-bar">
+                                <div class="chart-fill" style="--fill-height: 60%;"></div>
+                                <div class="chart-label">Thu</div>
+                            </div>
+                            <div class="chart-bar">
+                                <div class="chart-fill" style="--fill-height: 90%;"></div>
+                                <div class="chart-label">Fri</div>
+                            </div>
+                            <div class="chart-bar">
+                                <div class="chart-fill" style="--fill-height: 30%;"></div>
+                                <div class="chart-label">Sat</div>
+                            </div>
+                            <div class="chart-bar">
+                                <div class="chart-fill" style="--fill-height: 20%;"></div>
+                                <div class="chart-label">Sun</div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-4">
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>This week:</span>
+                                <strong>₹5,420</strong>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <span>Last week:</span>
+                                <strong>₹4,850</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Status toggle
+            const statusButtons = document.querySelectorAll('.status-btn');
+            statusButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    statusButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Update status message
+                    const welcomeText = document.querySelector('.welcome-text p');
+                    if (this.textContent === 'Online') {
+                        welcomeText.innerHTML = 'You\'ve completed <strong>12 rides</strong> today. Current earnings: <strong>₹1,240</strong>';
+                    } else {
+                        welcomeText.innerHTML = 'You\'re currently offline. Go online to receive ride requests.';
+                    }
+                });
+            });
+            
+            // Ride request actions
+            const acceptButtons = document.querySelectorAll('.btn-accept');
+            acceptButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const request = this.closest('.ride-request');
+                    request.style.opacity = '0.5';
+                    request.style.pointerEvents = 'none';
+                    alert('Ride accepted! Navigate to pickup location.');
+                });
+            });
+            
+            const declineButtons = document.querySelectorAll('.btn-decline');
+            declineButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const request = this.closest('.ride-request');
+                    request.style.opacity = '0.3';
+                    request.style.pointerEvents = 'none';
+                });
+            });
+            
+            // Complete ride button
+            const completeButton = document.querySelector('.btn-action.complete');
+            completeButton.addEventListener('click', function() {
+                alert('Ride completed! ₹120 has been added to your earnings.');
+            });
+        });
+    </script>
+</body>
+</html>

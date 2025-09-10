@@ -1,0 +1,187 @@
+:root {
+    --student-primary: #4e73df;
+    --student-secondary: #858796;
+    --driver-primary: #1cc88a;
+    --driver-secondary: #36b9cc;
+    --safety-orange: #f6c23e;
+    --danger: #e74a3b;
+    --dark: #5a5c69;
+}
+
+body {
+    font-family: 'Nunito', sans-serif;
+    overflow-x: hidden;
+}
+
+.student-theme {
+    background-color: #f8f9fc;
+    color: var(--student-primary);
+}
+
+.driver-theme {
+    background-color: #eefaf6;
+    color: var(--driver-primary);
+}
+
+#fuckinghead{
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 32px;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+#pholder{
+    background-color: #ffffff41 !important;
+    backdrop-filter: blur(12px) !important;
+}
+
+.hero-section {
+    padding: 7rem 0;
+    background: linear-gradient(90deg, rgba(78, 115, 223, 0.8) 0%, rgba(78, 115, 223, 0.9) 100%), url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center center;
+    background-size: cover;
+    color: white;
+}
+
+.driver-hero {
+    background: linear-gradient(90deg, rgba(28, 200, 138, 0.8) 0%, rgba(28, 200, 138, 0.9) 100%), url('https://images.unsplash.com/photo-1579532537598-459ecdaf39cc?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center center;
+    background-size: cover;
+}
+
+.problem-card {
+    border-left: 4px solid var(--danger);
+    transition: transform 0.3s;
+}
+
+.solution-card {
+    border-left: 4px solid var(--driver-primary);
+    transition: transform 0.3s;
+}
+
+.problem-card:hover, .solution-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+.sos-button {
+    background-color: var(--danger);
+    color: white;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+.booking-widget {
+    background: rgba(255, 255, 255, 0.378);
+    backdrop-filter: blur(8px);
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+}
+
+.popular-destinations {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 1rem 0;
+}
+
+.destination-chip {
+    background: #03081e;
+    padding: 0.5rem 1rem;
+    border-radius: 18px;
+    border-color: #858796 !important;
+    border-width: 2px !important;
+    font-size: 0.9rem;  
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.destination-chip:hover {
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 0 6px 6px rgba(0, 0, 0, 0.1);
+    transform: translateY(-3px);
+}
+
+.dashboard-card {
+    border-radius: 10px;
+    box-shadow: 0 0.15rem 1.75rem rgba(0, 0, 0, 0.09);
+    margin-bottom: 1.5rem;
+    transition: transform 0.3s;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-5px);
+}
+
+.student-dashboard {
+    border-top: 4px solid var(--student-primary);
+}
+
+.driver-dashboard {
+    border-top: 4px solid var(--driver-primary);
+}
+
+.admin-dashboard {
+    border-top: 4px solid var(--dark);
+}
+
+.nav-pills .nav-link.active {
+    background-color: var(--student-primary);
+}
+
+.heatmap-container {
+    height: 400px;
+    background: #f8f9fc;
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+}
+
+.heatmap-point {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.heatmap-legend {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background: rgb(34, 0, 0);
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    margin: 5px 0;
+}
+
+.legend-color {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    margin-right: 10px;
+}

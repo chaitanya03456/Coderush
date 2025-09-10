@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Shuttle Smart - Student Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="sd.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <div class="logo">
+                        <i class="fas fa-bus"></i>
+                        <span>Nigga's Cab</span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="user-menu">
+                        <div class="notifications">
+                            <i class="fas fa-bell"></i>
+                        </div>
+                        <div class="user-avatar">
+                            <span>S</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Welcome Card -->
+            <div class="welcome-card">
+                <div class="row align-items-center">
+                    <div class="col-md-8">
+                        <div class="welcome-text">
+                            <h2 style="color: aliceblue;">Good morning, Nigga!</h2>
+                            <p style="color: antiquewhite;">Ready to book your next ride? There are <strong>25 autos</strong> available near you.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 text-md-end">
+                        <div class="wallet-balance" style="color: azure;">
+                            <span class="text-muted" style="color: azure;" >Wallet Balance:</span>
+                            <h3 class="text-primary" style="color: azure;">₹ 450.00</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="row mb-4">
+                <div class="col-md-3 col-6">
+                    <div class="stats-card">
+                        <div class="stats-icon">
+                            <i class="fas fa-road"></i>
+                        </div>
+                        <div class="stats-number">42</div>
+                        <div class="stats-label">Total Rides</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stats-card">
+                        <div class="stats-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stats-number">24</div>
+                        <div class="stats-label">Shared Rides</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stats-card">
+                        <div class="stats-icon">
+                            <i class="fas fa-money-bill-wave"></i>
+                        </div>
+                        <div class="stats-number">₹3,240</div>
+                        <div class="stats-label">Total Saved</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stats-card">
+                        <div class="stats-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="stats-number">4.8</div>
+                        <div class="stats-label">Avg Rating</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Booking Widget -->
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="booking-widget">
+                        <div class="booking-header">
+                            <div class="booking-title">Book a Ride</div>
+                            <div class="auto-count">
+                                <span class="badge bg-success">25 autos nearby</span>
+                            </div>
+                        </div>
+                        
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Pickup Location</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
+                                    <input type="text" class="form-control" placeholder="Location??" >
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Destination</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-flag"></i></span>
+                                    <input type="text" class="form-control" placeholder="Where to?">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Popular Destinations</label>
+                            <div class="destination-chips">
+                                <div class="destination-chip">Tirupati Railway Station</div>
+                                <div class="destination-chip">City Bus Stand</div>
+                                <div class="destination-chip">Central Mall</div>
+                                <div class="destination-chip">PVR Cinemas</div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label class="form-label">Ride Type</label>
+                            <div class="ride-option">
+                                <button class="ride-option-btn active">Solo Ride</button>
+                                <button class="ride-option-btn">Shared Ride</button>
+                            </div>
+                        </div>
+                        
+                        <div class="fare-display">
+                            <div class="text-muted">Estimated Fare</div>
+                            <div class="fare-amount">₹ 120.00</div>
+                            <div class="text-muted small">Inclusive of all charges</div>
+                        </div>
+                        
+                        <button class="btn-book">
+                            <i class="fas fa-car me-2"></i>Book Auto Now
+                        </button>
+                    </div>
+                    
+                    <!-- Recent Rides -->
+                    <div class="recent-rides">
+                        <div class="section-header">
+                            <div class="section-title">Recent Rides</div>
+                            <a href="#" class="text-primary" style="color: #00ffff !important;;">View all</a>
+                        </div>
+                        
+                        <div class="ride-item">
+                            <div class="ride-destination">
+                                <div class="fw-bold">Tirupati Railway Station</div>
+                                <div class="small text-muted">Auto #AP03TX1234 • Rajesh</div>
+                            </div>
+                            <div class="ride-date">Today, 10:30 AM</div>
+                            <div class="ride-fare">₹120.00</div>
+                        </div>
+                        
+                        <div class="ride-item">
+                            <div class="ride-destination">
+                                <div class="fw-bold">Central Mall</div>
+                                <div class="small text-muted">Auto #AP03TX5678 • Suresh</div>
+                            </div>
+                            <div class="ride-date">Yesterday, 4:15 PM</div>
+                            <div class="ride-fare">₹85.00</div>
+                        </div>
+                        
+                        <div class="ride-item">
+                            <div class="ride-destination">
+                                <div class="fw-bold">City Bus Stand</div>
+                                <div class="small text-muted">Auto #AP03TX9012 • Mahesh</div>
+                            </div>
+                            <div class="ride-date">12 Oct, 11:20 AM</div>
+                            <div class="ride-fare">₹95.00</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4">
+                    <!-- Active Ride -->
+                    <div class="active-ride">
+                        <div class="ride-header">
+                            <div class="section-title">Active Ride</div>
+                            <div class="badge bg-success">Arriving in 5 min</div>
+                        </div>
+                        
+                        <div class="driver-info">
+                            <div class="driver-avatar">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="driver-details">
+                                <h5>Rajesh Kumar</h5>
+                                <p>Auto #AP03TX1234 • 4.8 ★</p>
+                            </div>
+                        </div>
+                        
+                        <div class="ride-details">
+                            <div class="ride-from">
+                                <div class="ride-point">
+                                    <i class="fas fa-circle"></i>
+                                    <div>
+                                        <div class="fw-bold">MBU Main Gate</div>
+                                        <div class="diff text-muted">Pickup</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="ride-to">
+                                <div class="ride-point">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <div>
+                                        <div class="fw-bold">Tirupati Railway Station</div>
+                                        <div class="diff text-muted">Destination</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                       <div class="ride-progress">
+                              <div class="progress-bar" style="width:65%"></div>
+                        </div>
+                            <div class="progress-label text-center">65% completed</div>
+
+                        <div class="ride-actions">
+                            <button class="btn-action call">
+                                <i class="fas fa-phone-alt me-2"></i>Call
+                            </button>
+                            <button class="btn-action">
+                                <i class="fas fa-map me-2"></i>Track
+                            </button>
+                            <button class="btn-action cancel">
+                                <i class="fas fa-times me-2"></i>Cancel
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Safety Features -->
+                    <div class="active-ride">
+                        <div class="section-header">
+                            <div class="section-title">Safety Features</div>
+                        </div>
+                        
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-outline-primary">
+                                <i class="fas fa-share-alt me-2"></i>Share Ride Details
+                            </button>
+                            <button class="btn btn-outline-primary">
+                                <i class="fas fa-user-shield me-2"></i>Emergency Contact
+                            </button>
+                            <button class="btn btn-outline-primary">
+                                <i class="fas fa-file-invoice me-2"></i>Ride Receipt
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- SOS Button -->
+    <div class="sos-button">
+        <i class="fas fa-exclamation-triangle"></i>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Ride option toggle
+            const rideOptionButtons = document.querySelectorAll('.ride-option-btn');
+            rideOptionButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    rideOptionButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Update fare estimate based on ride type
+                    const fareAmount = document.querySelector('.fare-amount');
+                    if (this.textContent.includes('Shared')) {
+                        fareAmount.textContent = '₹ 85.00';
+                    } else {
+                        fareAmount.textContent = '₹ 120.00';
+                    }
+                });
+            });
+            
+            // Destination chips selection
+            const destinationChips = document.querySelectorAll('.destination-chip');
+            destinationChips.forEach(chip => {
+                chip.addEventListener('click', function() {
+                    const destinationInput = document.querySelector('input[placeholder="Where to?"]');
+                    destinationInput.value = this.textContent;
+                    
+                    // Update fare based on destination
+                    const fareAmount = document.querySelector('.fare-amount');
+                    if (this.textContent.includes('Railway')) {
+                        fareAmount.textContent = '₹ 120.00';
+                    } else if (this.textContent.includes('Mall')) {
+                        fareAmount.textContent = '₹ 85.00';
+                    } else if (this.textContent.includes('Bus')) {
+                        fareAmount.textContent = '₹ 95.00';
+                    } else {
+                        fareAmount.textContent = '₹ 100.00';
+                    }
+                });
+            });
+            
+            // Book ride button
+            const bookButton = document.querySelector('.btn-book');
+            bookButton.addEventListener('click', function() {
+                alert('Your ride has been booked successfully! Driver will arrive shortly.');
+            });
+        });
+    </script>
+</body>
+</html>

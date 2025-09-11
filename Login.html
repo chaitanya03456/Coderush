@@ -199,8 +199,8 @@
                                         <button type="submit" class="btn btn-student w-100 mb-3">Login as Student</button>
                                     </form>
                                     
-                                    <div class="text-center mb-3">
-                                        <span class="text-muted">Or continue with Google</span>
+                                    <div class="divider">
+                                        <span>Or continue with</span>
                                     </div>
                                     
                                     <div class="social-login">
@@ -232,6 +232,14 @@
                                                 <input type="password" class="form-control" id="driverPassword" placeholder="Enter your password">
                                             </div>
                                         </div>
+                                        <div class="mb-4">
+                                            <label for="securityCode" class="form-label">Security Code</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text"><i class="fas fa-shield-alt"></i></span>
+                                                <input type="text" class="form-control" id="securityCode" placeholder="Enter security code">
+                                            </div>
+                                            <div class="form-text">Provided by your fleet manager</div>
+                                        </div>
                                         <div class="mb-3 form-check">
                                             <input type="checkbox" class="form-check-input" id="rememberDriver">
                                             <label class="form-check-label" for="rememberDriver">Remember me</label>
@@ -240,8 +248,18 @@
                                         <button type="submit" class="btn btn-driver w-100 mb-3">Login as Driver</button>
                                     </form>
                                     
-                                    <div class="login-footer">
-                                        <p>Don't have an account? <a href="#" class="text-decoration-none">Contact administrator</a></p>
+                                    <div class="divider">
+                                        <span>Driver support</span>
+                                    </div>
+                                    
+                                    <div class="text-center">
+                                        <p>Having trouble accessing your account?</p>
+                                        <a href="#" class="btn btn-outline-secondary me-2">
+                                            <i class="fas fa-phone-alt me-1"></i> Call Support
+                                        </a>
+                                        <a href="#" class="btn btn-outline-primary">
+                                            <i class="fas fa-envelope me-1"></i> Email Support
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -285,8 +303,9 @@
                     e.preventDefault();
                     const driverId = document.getElementById('driverId').value;
                     const password = document.getElementById('driverPassword').value;
+                    const securityCode = document.getElementById('securityCode').value;
                     
-                    if (!driverId || !password) {
+                    if (!driverId || !password || !securityCode) {
                         alert('Please fill in all fields');
                         return;
                     }

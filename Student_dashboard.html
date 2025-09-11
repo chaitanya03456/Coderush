@@ -3,322 +3,327 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Campus Shuttle Smart - Student Dashboard</title>
+    <title>Login - Campus Shuttle Smart</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="sd.css">
+    <style>
+        :root {
+            --student-primary: #4e73df;
+            --student-secondary: #858796;
+            --driver-primary: #1cc88a;
+            --driver-secondary: #36b9cc;
+            --dark: #5a5c69;
+        }
+        
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: linear-gradient(135deg, #f8f9fc 0%, #eaecf4 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+        
+        .login-container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 0.15rem 1.75rem rgba(0, 0, 0, 0.09);
+            overflow: hidden;
+        }
+        
+        .login-left {
+            background: linear-gradient(135deg, var(--student-primary) 0%, var(--student-secondary) 100%);
+            color: white;
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .driver-theme {
+            background: linear-gradient(135deg, var(--driver-primary) 0%, var(--driver-secondary) 100%);
+        }
+        
+        .login-icon {
+            font-size: 5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .nav-pills .nav-link {
+            color: var(--dark);
+            font-weight: 600;
+            border-radius: 0;
+            padding: 1rem 1.5rem;
+        }
+        
+        .nav-pills .nav-link.active {
+            background-color: transparent;
+            color: var(--student-primary);
+            border-bottom: 3px solid var(--student-primary);
+        }
+        
+        .nav-pills .nav-link.driver-tab.active {
+            color: var(--driver-primary);
+            border-bottom: 3px solid var(--driver-primary);
+        }
+        
+        .login-form {
+            padding: 3rem;
+        }
+        
+        .form-control {
+            padding: 0.8rem 1rem;
+            border-radius: 8px;
+        }
+        
+        .btn-student {
+            background-color: var(--student-primary);
+            border-color: var(--student-primary);
+            color: white;
+            padding: 0.8rem;
+        }
+        
+        .btn-driver {
+            background-color: var(--driver-primary);
+            border-color: var(--driver-primary);
+            color: white;
+            padding: 0.8rem;
+        }
+        
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: var(--dark);
+            margin: 2rem 0;
+        }
+        
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .divider span {
+            padding: 0 1rem;
+        }
+        
+        .social-login {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .social-btn {
+            flex: 1;
+            padding: 0.6rem;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid #ddd;
+            background: white;
+            transition: all 0.3s;
+        }
+        
+        .social-btn:hover {
+            background: #f8f9fc;
+            transform: translateY(-2px);
+        }
+        
+        .login-footer {
+            text-align: center;
+            margin-top: 2rem;
+            color: var(--dark);
+        }
+        
+        @media (max-width: 992px) {
+            .login-left {
+                display: none;
+            }
+        }
+    </style>
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-md-6">
-                    <div class="logo">
-                        <i class="fas fa-bus"></i>
-                        <span>Nigga's Cab</span>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="user-menu">
-                        <div class="notifications">
-                            <i class="fas fa-bell"></i>
-                        </div>
-                        <div class="user-avatar">
-                            <span>S</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <!-- Main Content -->
-    <main class="main-content">
-        <div class="container">
-            <!-- Welcome Card -->
-            <div class="welcome-card">
-                <div class="row align-items-center">
-                    <div class="col-md-8">
-                        <div class="welcome-text">
-                            <h2 style="color: aliceblue;">Good morning, Nigga!</h2>
-                            <p style="color: antiquewhite;">Ready to book your next ride? There are <strong>25 autos</strong> available near you.</p>
-                        </div>
-                    </div>
-                    <div class="col-md-4 text-md-end">
-                        <div class="wallet-balance" style="color: azure;">
-                            <span class="text-muted" style="color: azure;" >Wallet Balance:</span>
-                            <h3 class="text-primary" style="color: azure;">₹ 450.00</h3>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Stats Cards -->
-            <div class="row mb-4">
-                <div class="col-md-3 col-6">
-                    <div class="stats-card">
-                        <div class="stats-icon">
-                            <i class="fas fa-road"></i>
-                        </div>
-                        <div class="stats-number">42</div>
-                        <div class="stats-label">Total Rides</div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-6">
-                    <div class="stats-card">
-                        <div class="stats-icon">
-                            <i class="fas fa-users"></i>
-                        </div>
-                        <div class="stats-number">24</div>
-                        <div class="stats-label">Shared Rides</div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-6">
-                    <div class="stats-card">
-                        <div class="stats-icon">
-                            <i class="fas fa-money-bill-wave"></i>
-                        </div>
-                        <div class="stats-number">₹3,240</div>
-                        <div class="stats-label">Total Saved</div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-6">
-                    <div class="stats-card">
-                        <div class="stats-icon">
-                            <i class="fas fa-star"></i>
-                        </div>
-                        <div class="stats-number">4.8</div>
-                        <div class="stats-label">Avg Rating</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Booking Widget -->
-            <div class="row">
-                <div class="col-lg-8">
-                    <div class="booking-widget">
-                        <div class="booking-header">
-                            <div class="booking-title">Book a Ride</div>
-                            <div class="auto-count">
-                                <span class="badge bg-success">25 autos nearby</span>
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-10 col-lg-8">
+                <div class="login-container">
+                    <div class="row">
+                        <!-- Left side with information -->
+                        <div class="col-lg-6 login-left">
+                            <div class="text-center">
+                                <i class="fas fa-bus login-icon"></i>
+                                <h2 class="mb-3">Campus Shuttle Smart</h2>
+                                <p>Organizing, digitizing, and improving transportation for the MBU community.</p>
                             </div>
                         </div>
                         
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <label class="form-label">Pickup Location</label>
-                                <div class="input-group">
-                                    <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
-                                    <input type="text" class="form-control" placeholder="Location??" >
+                        <!-- Right side with login forms -->
+                        <div class="col-lg-6 login-form">
+                            <ul class="nav nav-pills mb-4 justify-content-center">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="student-tab" data-bs-toggle="pill" href="#student-login">
+                                        <i class="fas fa-user-graduate me-2"></i>Student Login
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link driver-tab" id="driver-tab" data-bs-toggle="pill" href="#driver-login">
+                                        <i class="fas fa-id-card-alt me-2"></i>Driver Login
+                                    </a>
+                                </li>
+                            </ul>
+                            
+                            <div class="tab-content">
+                                <!-- Student Login Form -->
+                                <div class="tab-pane fade show active" id="student-login">
+                                    <h3 class="mb-4">Welcome back, Student!</h3>
+                                    <form>
+                                        <div class="mb-3">
+                                            <label for="studentId" class="form-label">Student ID</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                                <input type="text" class="form-control" id="studentId" placeholder="Enter your student ID">
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="studentPassword" class="form-label">Password</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                                                <input type="password" class="form-control" id="studentPassword" placeholder="Enter your password">
+                                            </div>
+                                        </div>
+                                        <div class="mb-3 form-check">
+                                            <input type="checkbox" class="form-check-input" id="rememberStudent">
+                                            <label class="form-check-label" for="rememberStudent">Remember me</label>
+                                            <a href="#" class="float-end">Forgot Password?</a>
+                                        </div>
+                                        <button type="submit" class="btn btn-student w-100 mb-3">Login as Student</button>
+                                    </form>
+                                    
+                                    <div class="divider">
+                                        <span>Or continue with</span>
+                                    </div>
+                                    
+                                    <div class="social-login">
+                                        <a href="#" class="social-btn">
+                                            <i class="fab fa-google text-danger"></i>
+                                        </a>
+                                    </div>
+                                    
+                                    <div class="login-footer">
+                                        <p>Don't have an account? <a href="#" class="text-decoration-none">Sign up here</a></p>
+                                    </div>
+                                </div>
+                                
+                                <!-- Driver Login Form -->
+                                <div class="tab-pane fade" id="driver-login">
+                                    <h3 class="mb-4">Driver Portal Access</h3>
+                                    <form>
+                                        <div class="mb-3">
+                                            <label for="driverId" class="form-label">Driver ID</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text"><i class="fas fa-id-card"></i></span>
+                                                <input type="text" class="form-control" id="driverId" placeholder="Enter your driver ID">
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="driverPassword" class="form-label">Password</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                                                <input type="password" class="form-control" id="driverPassword" placeholder="Enter your password">
+                                            </div>
+                                        </div>
+                                        <div class="mb-4">
+                                            <label for="securityCode" class="form-label">Security Code</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text"><i class="fas fa-shield-alt"></i></span>
+                                                <input type="text" class="form-control" id="securityCode" placeholder="Enter security code">
+                                            </div>
+                                            <div class="form-text">Provided by your fleet manager</div>
+                                        </div>
+                                        <div class="mb-3 form-check">
+                                            <input type="checkbox" class="form-check-input" id="rememberDriver">
+                                            <label class="form-check-label" for="rememberDriver">Remember me</label>
+                                            <a href="#" class="float-end">Forgot Password?</a>
+                                        </div>
+                                        <button type="submit" class="btn btn-driver w-100 mb-3">Login as Driver</button>
+                                    </form>
+                                    
+                                    <div class="divider">
+                                        <span>Driver support</span>
+                                    </div>
+                                    
+                                    <div class="text-center">
+                                        <p>Having trouble accessing your account?</p>
+                                        <a href="#" class="btn btn-outline-secondary me-2">
+                                            <i class="fas fa-phone-alt me-1"></i> Call Support
+                                        </a>
+                                        <a href="#" class="btn btn-outline-primary">
+                                            <i class="fas fa-envelope me-1"></i> Email Support
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <label class="form-label">Destination</label>
-                                <div class="input-group">
-                                    <span class="input-group-text"><i class="fas fa-flag"></i></span>
-                                    <input type="text" class="form-control" placeholder="Where to?">
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="mb-3">
-                            <label class="form-label">Popular Destinations</label>
-                            <div class="destination-chips">
-                                <div class="destination-chip">Tirupati Railway Station</div>
-                                <div class="destination-chip">City Bus Stand</div>
-                                <div class="destination-chip">Central Mall</div>
-                                <div class="destination-chip">PVR Cinemas</div>
-                            </div>
-                        </div>
-                        
-                        <div class="mb-4">
-                            <label class="form-label">Ride Type</label>
-                            <div class="ride-option">
-                                <button class="ride-option-btn active">Solo Ride</button>
-                                <button class="ride-option-btn">Shared Ride</button>
-                            </div>
-                        </div>
-                        
-                        <div class="fare-display">
-                            <div class="text-muted">Estimated Fare</div>
-                            <div class="fare-amount">₹ 120.00</div>
-                            <div class="text-muted small">Inclusive of all charges</div>
-                        </div>
-                        
-                        <button class="btn-book">
-                            <i class="fas fa-car me-2"></i>Book Auto Now
-                        </button>
-                    </div>
-                    
-                    <!-- Recent Rides -->
-                    <div class="recent-rides">
-                        <div class="section-header">
-                            <div class="section-title">Recent Rides</div>
-                            <a href="#" class="text-primary" style="color: #00ffff !important;;">View all</a>
-                        </div>
-                        
-                        <div class="ride-item">
-                            <div class="ride-destination">
-                                <div class="fw-bold">Tirupati Railway Station</div>
-                                <div class="small text-muted">Auto #AP03TX1234 • Rajesh</div>
-                            </div>
-                            <div class="ride-date">Today, 10:30 AM</div>
-                            <div class="ride-fare">₹120.00</div>
-                        </div>
-                        
-                        <div class="ride-item">
-                            <div class="ride-destination">
-                                <div class="fw-bold">Central Mall</div>
-                                <div class="small text-muted">Auto #AP03TX5678 • Suresh</div>
-                            </div>
-                            <div class="ride-date">Yesterday, 4:15 PM</div>
-                            <div class="ride-fare">₹85.00</div>
-                        </div>
-                        
-                        <div class="ride-item">
-                            <div class="ride-destination">
-                                <div class="fw-bold">City Bus Stand</div>
-                                <div class="small text-muted">Auto #AP03TX9012 • Mahesh</div>
-                            </div>
-                            <div class="ride-date">12 Oct, 11:20 AM</div>
-                            <div class="ride-fare">₹95.00</div>
                         </div>
                     </div>
                 </div>
                 
-                <div class="col-lg-4">
-                    <!-- Active Ride -->
-                    <div class="active-ride">
-                        <div class="ride-header">
-                            <div class="section-title">Active Ride</div>
-                            <div class="badge bg-success">Arriving in 5 min</div>
-                        </div>
-                        
-                        <div class="driver-info">
-                            <div class="driver-avatar">
-                                <i class="fas fa-user"></i>
-                            </div>
-                            <div class="driver-details">
-                                <h5>Rajesh Kumar</h5>
-                                <p>Auto #AP03TX1234 • 4.8 ★</p>
-                            </div>
-                        </div>
-                        
-                        <div class="ride-details">
-                            <div class="ride-from">
-                                <div class="ride-point">
-                                    <i class="fas fa-circle"></i>
-                                    <div>
-                                        <div class="fw-bold">MBU Main Gate</div>
-                                        <div class="diff text-muted">Pickup</div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="ride-to">
-                                <div class="ride-point">
-                                    <i class="fas fa-map-marker-alt"></i>
-                                    <div>
-                                        <div class="fw-bold">Tirupati Railway Station</div>
-                                        <div class="diff text-muted">Destination</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                       <div class="ride-progress">
-                              <div class="progress-bar" style="width:65%"></div>
-                        </div>
-                            <div class="progress-label text-center">65% completed</div>
-
-                        <div class="ride-actions">
-                            <button class="btn-action call">
-                                <i class="fas fa-phone-alt me-2"></i>Call
-                            </button>
-                            <button class="btn-action">
-                                <i class="fas fa-map me-2"></i>Track
-                            </button>
-                            <button class="btn-action cancel">
-                                <i class="fas fa-times me-2"></i>Cancel
-                            </button>
-                        </div>
-                    </div>
-                    
-                    <!-- Safety Features -->
-                    <div class="active-ride">
-                        <div class="section-header">
-                            <div class="section-title">Safety Features</div>
-                        </div>
-                        
-                        <div class="d-grid gap-2">
-                            <button class="btn btn-outline-primary">
-                                <i class="fas fa-share-alt me-2"></i>Share Ride Details
-                            </button>
-                            <button class="btn btn-outline-primary">
-                                <i class="fas fa-user-shield me-2"></i>Emergency Contact
-                            </button>
-                            <button class="btn btn-outline-primary">
-                                <i class="fas fa-file-invoice me-2"></i>Ride Receipt
-                            </button>
-                        </div>
-                    </div>
+                <div class="text-center mt-4">
+                    <p class="text-muted">&copy; 2023 Campus Shuttle Smart. All rights reserved.</p>
                 </div>
             </div>
         </div>
-    </main>
-
-    <!-- SOS Button -->
-    <div class="sos-button">
-        <i class="fas fa-exclamation-triangle"></i>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+        // Simple form validation
         document.addEventListener('DOMContentLoaded', function() {
-            // Ride option toggle
-            const rideOptionButtons = document.querySelectorAll('.ride-option-btn');
-            rideOptionButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    rideOptionButtons.forEach(btn => btn.classList.remove('active'));
-                    this.classList.add('active');
-                    
-                    // Update fare estimate based on ride type
-                    const fareAmount = document.querySelector('.fare-amount');
-                    if (this.textContent.includes('Shared')) {
-                        fareAmount.textContent = '₹ 85.00';
-                    } else {
-                        fareAmount.textContent = '₹ 120.00';
-                    }
-                });
-            });
+            const studentForm = document.querySelector('#student-login form');
+            const driverForm = document.querySelector('#driver-login form');
             
-            // Destination chips selection
-            const destinationChips = document.querySelectorAll('.destination-chip');
-            destinationChips.forEach(chip => {
-                chip.addEventListener('click', function() {
-                    const destinationInput = document.querySelector('input[placeholder="Where to?"]');
-                    destinationInput.value = this.textContent;
+            if (studentForm) {
+                studentForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const studentId = document.getElementById('studentId').value;
+                    const password = document.getElementById('studentPassword').value;
                     
-                    // Update fare based on destination
-                    const fareAmount = document.querySelector('.fare-amount');
-                    if (this.textContent.includes('Railway')) {
-                        fareAmount.textContent = '₹ 120.00';
-                    } else if (this.textContent.includes('Mall')) {
-                        fareAmount.textContent = '₹ 85.00';
-                    } else if (this.textContent.includes('Bus')) {
-                        fareAmount.textContent = '₹ 95.00';
-                    } else {
-                        fareAmount.textContent = '₹ 100.00';
+                    if (!studentId || !password) {
+                        alert('Please fill in all fields');
+                        return;
                     }
+                    
+                    // Simulate login process
+                    alert('Student login successful! Redirecting to dashboard...');
+                    // In a real application, you would redirect to the dashboard
                 });
-            });
+            }
             
-            // Book ride button
-            const bookButton = document.querySelector('.btn-book');
-            bookButton.addEventListener('click', function() {
-                alert('Your ride has been booked successfully! Driver will arrive shortly.');
-            });
+            if (driverForm) {
+                driverForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const driverId = document.getElementById('driverId').value;
+                    const password = document.getElementById('driverPassword').value;
+                    const securityCode = document.getElementById('securityCode').value;
+                    
+                    if (!driverId || !password || !securityCode) {
+                        alert('Please fill in all fields');
+                        return;
+                    }
+                    
+                    // Simulate login process
+                    alert('Driver login successful! Redirecting to dashboard...');
+                    // In a real application, you would redirect to the dashboard
+                });
+            }
+            
+            // Switch to driver tab if URL has #driver
+            if (window.location.hash === '#driver') {
+                const driverTab = document.getElementById('driver-tab');
+                if (driverTab) {
+                    const tab = new bootstrap.Tab(driverTab);
+                    tab.show();
+                }
+            }
         });
     </script>
 </body>
